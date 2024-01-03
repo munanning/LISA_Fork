@@ -73,7 +73,7 @@ def parse_args(args):
         type=int,
     )
     parser.add_argument("--val_batch_size", default=1, type=int)
-    parser.add_argument("--workers", default=8, type=int)
+    parser.add_argument("--workers", default=4, type=int)
     parser.add_argument("--lr", default=0.0003, type=float)
     parser.add_argument("--ce_loss_weight", default=1.0, type=float)
     parser.add_argument("--dice_loss_weight", default=0.5, type=float)
