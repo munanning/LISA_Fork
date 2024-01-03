@@ -149,11 +149,12 @@ class LISAForCausalLM(LlavaLlamaForCausalLM):
         self.post_init()
 
     def get_visual_embs(self, pixel_values: torch.FloatTensor):
-        with torch.no_grad():
+        with (torch.no_grad()):
             image_embeddings_list = []
             for i in range(pixel_values.shape[0]):
                 torch.cuda.empty_cache()
-                image_embeddings = self.model.visual_model.image_encoder(
+                image_embeddings = self.model.vision_tower(
+                # self.model.visual_model.image_encoder(
                     pixel_values[i].unsqueeze(0)
                 )
                 image_embeddings_list.append(image_embeddings)
