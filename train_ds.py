@@ -99,7 +99,7 @@ def parse_args(args):
     parser.add_argument("--auto_resume", action="store_true", default=True)
     parser.add_argument(
         "--conv_type",
-        default="llava_llama_2",
+        default="llava_v1",
         type=str,
         choices=["llava_v1", "llava_llama_2"],
     )
