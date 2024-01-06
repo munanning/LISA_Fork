@@ -24,7 +24,7 @@ from utils.utils import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
                          IMAGE_TOKEN_INDEX)
 
 from .multimodal_encoder.builder import build_vision_tower
-
+from builder import build_vision_projector
 
 class LlavaMetaModel:
     def __init__(self, config):
@@ -32,7 +32,14 @@ class LlavaMetaModel:
 
         if hasattr(config, "mm_vision_tower"):
             self.vision_tower = build_vision_tower(config, delay_load=True)
+        # llava1.5
+        if hasattr(config, "mm_projector_type") and config.mm_projector_type == "mlp2x_gelu":
+            self.mm_projector = build_vision_projector(config)
+            print("Using MLP2xGELU projector for MM")
+        # llava1-1
+        else:
             self.mm_projector = nn.Linear(config.mm_hidden_size, config.hidden_size)
+            print("Using Linear projector for MM")
 
     def get_vision_tower(self):
         vision_tower = getattr(self, "vision_tower", None)
