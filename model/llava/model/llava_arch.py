@@ -24,7 +24,7 @@ from utils.utils import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
                          IMAGE_TOKEN_INDEX)
 
 from .multimodal_encoder.builder import build_vision_tower
-from builder import build_vision_projector
+from .builder import build_vision_projector
 
 class LlavaMetaModel:
     def __init__(self, config):
