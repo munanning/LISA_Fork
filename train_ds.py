@@ -103,6 +103,8 @@ def parse_args(args):
         type=str,
         choices=["llava_v1", "llava_llama_2"],
     )
+
+
     return parser.parse_args(args)
 
 
