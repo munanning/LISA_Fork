@@ -161,14 +161,20 @@ def main(args):
     model.enable_input_require_grads()
     model.gradient_checkpointing_enable()
 
-    model.get_model().initialize_vision_modules(model.get_model().config)
-    vision_tower = model.get_model().get_vision_tower()
-    vision_tower.to(dtype=torch_dtype, device=args.local_rank)
+    model.get_model().initialize_image_modules(model.get_model().config)
+    image_tower = model.get_model().get_image_tower()
+    image_tower.to(dtype=torch_dtype, device=args.local_rank)
+
+    # model.get_model().initialize_vision_modules(model.get_model().config)
+    # vision_tower = model.get_model().get_vision_tower()
+    # vision_tower.to(dtype=torch_dtype, device=args.local_rank)
     if not args.eval_only:
         model.get_model().initialize_lisa_modules(model.get_model().config)
 
-    for p in vision_tower.parameters():
+    for p in image_tower.parameters():
         p.requires_grad = False
+    # for p in vision_tower.parameters():
+    #     p.requires_grad = False
     for p in model.get_model().mm_projector.parameters():
         p.requires_grad = False
 
