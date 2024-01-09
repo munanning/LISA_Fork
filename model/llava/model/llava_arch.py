@@ -49,7 +49,7 @@ class LlavaMetaModel:
         return video_tower
 
     def initialize_image_modules(self, model_args, fsdp=None):
-        image_tower = model_args.image_tower
+        image_tower = model_args.mm_image_tower
         mm_vision_select_layer = model_args.mm_vision_select_layer
         mm_vision_select_feature = model_args.mm_vision_select_feature
         pretrain_mm_mlp_adapter = model_args.pretrain_mm_mlp_adapter
