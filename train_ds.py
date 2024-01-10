@@ -104,7 +104,37 @@ def parse_args(args):
         choices=["llava_v1", "llava_llama_2"],
     )
 
-
+    # video-llava part
+    parser.add_argument(
+        "--video_tower",
+        default="LanguageBind/LanguageBind_Video_merge",
+        type=str,
+        help="video tower",
+    )
+    parser.add_argument(
+        "--image_tower",
+        default="LanguageBind/LanguageBind_Image",
+        type=str,
+        help="image tower",
+    )
+    parser.add_argument(
+        "--pretrain_mm_mlp_adapter",
+        default="checkpoints/Video-LLaVA-Pretrain-7B/mm_projector.bin",
+        type=str,
+        help="pretrained multimodal MLP adapter",
+    )
+    parser.add_argument(
+        "--mm_projector_type",
+        default="mlp2x_gelu",
+        type=str,
+        help="multimodal projector type",
+    )
+    parser.add_argument(
+        "--mm_vision_select_layer",
+        default=-2,
+        type=int,
+        help="multimodal vision select layer",
+    )
     return parser.parse_args(args)
 
 
@@ -145,6 +175,12 @@ def main(args):
         "vision_pretrained": args.vision_pretrained,
         "vision_tower": args.vision_tower,
         "use_mm_start_end": args.use_mm_start_end,
+
+        "video_tower": args.video_tower,
+        "image_tower": args.image_tower,
+        "pretrain_mm_mlp_adapter": args.pretrain_mm_mlp_adapter,
+        "mm_projector_type": args.mm_projector_type,
+        "mm_vision_select_layer": args.mm_vision_select_layer,
     }
     torch_dtype = torch.float32
     if args.precision == "bf16":
