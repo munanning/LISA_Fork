@@ -306,7 +306,8 @@ class LlavaMetaForCausalLM(ABC):
         ['image', 'image', 'video', 'audio']
         ]
         '''
-        Xs, keys = X_modalities
+        # Xs, keys = X_modalities
+        Xs, keys = [x for x in X_modalities], ['image' for _ in X_modalities]
         all_tower = self.get_all_tower(set(keys)) if len(keys) > 0 else None
         
         # print(2.5)
